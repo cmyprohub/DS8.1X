@@ -73,3 +73,25 @@ by_sex.set_format('Males', NumberFormatter)
 
 #Visualizing
 by_sex.plot(0)
+
+by_age = census.where('SEX', 0).drop('SEX').where('AGE', are.between(0, 100))
+by_age
+
+by_age.plot(0, 2)
+
+by_age.plot(0, 3)
+
+by_age.select(0, 1, 2).plot(0)
+
+by_age.select(0, 1, 2).plot(0, overlay=False)
+
+#column names
+by_age.labels
+
+by_age.plot(0, 3)
+
+by_age.sort(3, descending=True)
+
+2010 - 68
+
+2015 - 68
