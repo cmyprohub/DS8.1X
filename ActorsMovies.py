@@ -53,4 +53,38 @@ studios.sort(1, descending=True).barh(0)
 
 #binning
 
+top = Table.read_table('top_movies.csv')
+top
+
+
+age = 2017 - top.column('Year')
+
+top = top.with_column('Age', age)
+top
+
+min(top.column('Age')), max(top.column('Age'))
+
+my_bins = make_array(0, 5, 10, 15, 25, 40, 65, 100)
+
+top.bin('Age', bins = my_bins)
+
+sum(top.bin('Age', bins = my_bins).column(1))
+
+top.bin('Age', bins = np.arange(0, 101, 25))
+
+top.bin('Age', bins = np.arange(0, 60, 25))
+
+top.where('Age', 50)
+
+#Histograms
+my_bins
+top.bin('Age', bins = my_bins)
+top.hist('Age', bins = my_bins, unit = 'Year')
+top.hist('Age', bins = my_bins, unit = 'Year', normed = False)
+top.hist('Age', bins = my_bins, unit = 'Year')
+top.hist('Age', bins = np.arange(0, 110, 10), unit = 'Year')
+
+#Density
+top.bin('Age', bins = my_bins)
+top.hist('Age', bins = my_bins, unit = 'Year')
 
