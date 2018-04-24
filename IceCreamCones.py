@@ -44,7 +44,13 @@ all_cones.group(['Flavor', 'Color'])
 
 all_cones.group(['Flavor', 'Color'], max)
 
+#Pivot tables
+all_cones.group(['Flavor', 'Color'])
 
+all_cones.pivot('Flavor', 'Color')   # pivot table, contingency table Col,row
 
+all_cones.pivot('Color', 'Flavor')
+
+all_cones.pivot('Color', 'Flavor', values = 'Price', collect = max) #max price in each category
 
 
