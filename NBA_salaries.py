@@ -29,12 +29,47 @@ position_and_money.group('POSITION')
 
 position_and_money.group('POSITION', np.average)
 
+#Finding total salary in each position
 nba.drop(0).group(['TEAM', 'POSITION'], np.average)
 nba.drop(0, 2).group('POSITION', np.average)
 
 starter_salaries = nba.drop(0).group(['TEAM', 'POSITION'], max)
 starter_salaries
 
+#Max total salary
 starter_salaries.drop(1).group('TEAM', sum).sort(1, descending=True)
+nba.group('TEAM', sum) #wrong, attempts to sum all columns
+
+#Average salary in each position
+position_and_money = nba.select('POSITION', 'SALARY')
+position_and_money.group('POSITION')
+position_and_money.group('POSITION', np.average)
+
+#Max salary per team per position
+starter_salaries = nba.drop(0).group(['TEAM', 'POSITION'], max)
+starter_salaries
+
+#Suma of starter salaries for each team
+starter_salaries.drop(1).group('TEAM', sum).sort(1, descending=True)
+
+#Avg salary per position in each team - 2 different ways using pivot and group
+nba.drop(0).group(['TEAM', 'POSITION'], np.average)
+nba.pivot('POSITION', 'TEAM', 'SALARY', np.average)
+
+#Max salary for each position within a team and adding additional column for the totals
+step_1 = nba.pivot('POSITION', 'TEAM', 'SALARY', max)
+step_1
+
+
+totals = step_1.drop(0).apply(sum)
+step_1.with_columns('TOTAL', totals).sort(6, descending=True)
+
+
+
+    
+    
+    
+
+
 
 
